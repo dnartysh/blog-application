@@ -6,33 +6,34 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "posts")
 public class PostModel {
-
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
-    @Column(name = "is_active")
+    @JoinColumn(name = "is_active")
     private boolean isActive;
 
     @NotNull
-    @Column(name = "moderation_status")
+    @JoinColumn(name = "moderation_status")
     @Enumerated(EnumType.STRING)
     private PostStatus moderationStatus;
 
-    @Column(name = "moderator_id")
+    @JoinColumn(name = "moderator_id")
     private int moderatorId;
 
     @NotNull
-    @Column(name = "user_id")
-    private int userId;
+    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private UserModel userId;
 
     @NotNull
     private Date time;
@@ -44,6 +45,42 @@ public class PostModel {
     private String text;
 
     @NotNull
-    @Column(name = "view_count")
+    @JoinColumn(name = "view_count")
     private int viewCount;
+
+    @OneToMany(mappedBy = "postId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostVotesModel> postVotesId;
+
+    @OneToMany(mappedBy = "postId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostCommentModel> postComments;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

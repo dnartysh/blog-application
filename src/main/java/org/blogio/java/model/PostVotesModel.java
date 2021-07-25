@@ -12,19 +12,20 @@ import java.util.Date;
 @Setter
 @Table(name = "post_votes")
 public class PostVotesModel {
-
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
-    @Column(name = "user_id")
-    private int userId;
+    @JoinColumn(name = "user_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserModel userId;
 
     @NotNull
-    @Column(name = "post_id")
-    private int postId;
+    @JoinColumn(name = "post_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private PostModel postId;
 
     @NotNull
     private Date time;

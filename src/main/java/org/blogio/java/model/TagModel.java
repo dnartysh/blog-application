@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Table(name = "tags")
 public class TagModel {
-
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -12,22 +12,23 @@ import java.util.Date;
 @Setter
 @Table(name = "post_comments")
 public class PostCommentModel {
-
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "parent_id")
+    @JoinColumn(name = "parent_id")
     private int parentId;
 
     @NotNull
-    @Column(name = "post_id")
-    private int postId;
+    @JoinColumn(name = "post_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private PostModel postId;
 
     @NotNull
-    @Column(name = "user_id")
-    private int userId;
+    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private UserModel userId;
 
     @NotNull
     private Date time;

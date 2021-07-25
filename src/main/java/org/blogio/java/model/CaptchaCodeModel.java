@@ -12,7 +12,6 @@ import java.util.Date;
 @Setter
 @Table(name = "captcha_codes")
 public class CaptchaCodeModel {
-
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +24,6 @@ public class CaptchaCodeModel {
     private String code;
 
     @NotNull
-    @Column(name = "secret_code")
+    @JoinColumn(name = "secret_code")
     private String secretCode;
 }

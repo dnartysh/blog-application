@@ -6,24 +6,24 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "users")
 public class UserModel {
-
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
-    @Column(name = "is_moderator")
+    @JoinColumn(name = "is_moderator")
     private boolean isModerator;
 
     @NotNull
-    @Column(name = "reg_time")
+    @JoinColumn(name = "reg_time")
     private Date regTime;
 
     @NotNull
@@ -38,4 +38,13 @@ public class UserModel {
     private String code;
 
     private String photo;
+
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostModel> posts;
+
+    @OneToOne(mappedBy = "userId", cascade = CascadeType.ALL)
+    private PostVotesModel postVotesId;
+
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostCommentModel> postComments;
 }

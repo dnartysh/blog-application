@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Table(name = "global_settings")
 public class GlobalSettingModel {
-
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
