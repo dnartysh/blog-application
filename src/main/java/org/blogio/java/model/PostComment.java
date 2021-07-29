@@ -10,26 +10,30 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@Table(name = "post_votes")
-public class PostVotesModel {
+@Table(name = "post_comments")
+public class PostComment {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotNull
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "parent_id")
     @OneToOne(cascade = CascadeType.ALL)
-    private UserModel userId;
+    private PostComment parent;
 
     @NotNull
     @JoinColumn(name = "post_id")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private PostModel postId;
+    private Post post;
+
+    @NotNull
+    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private User user;
 
     @NotNull
     private Date time;
 
     @NotNull
-    private boolean value;
+    private String text;
 }

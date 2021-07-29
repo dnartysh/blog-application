@@ -3,3 +3,5 @@ target
 doc
 src/main/resources/static
 src/main/resources/templates/
+/.jpb/
+/sql/
