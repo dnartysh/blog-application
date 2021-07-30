@@ -9,13 +9,19 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Getter
 @Setter
-@Table(name = "tags")
-public class TagModel {
+@Table(name = "global_settings")
+public class GlobalSetting {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
+    private String code;
+
+    @NotNull
     private String name;
+
+    @NotNull
+    private String value;
 }

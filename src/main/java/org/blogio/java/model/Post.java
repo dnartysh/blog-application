@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "posts")
-public class PostModel {
+public class Post {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,12 +28,13 @@ public class PostModel {
     private PostStatus moderationStatus;
 
     @JoinColumn(name = "moderator_id")
-    private int moderatorId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private User moderator;
 
     @NotNull
     @JoinColumn(name = "user_id")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private UserModel userId;
+    private User user;
 
     @NotNull
     private Date time;
@@ -48,9 +49,9 @@ public class PostModel {
     @JoinColumn(name = "view_count")
     private int viewCount;
 
-    @OneToMany(mappedBy = "postId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PostVotesModel> postVotesId;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostVote> postVotes;
 
-    @OneToMany(mappedBy = "postId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PostCommentModel> postComments;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostComment> postComments;
 }

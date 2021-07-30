@@ -9,19 +9,20 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Getter
 @Setter
-@Table(name = "global_settings")
-public class GlobalSettingModel {
+@Table(name = "tag2post")
+public class Tag2Post {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
-    private String code;
+    @JoinColumn(name = "post_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    private Post post;
 
     @NotNull
-    private String name;
-
-    @NotNull
-    private String value;
+    @JoinColumn(name = "tag_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    private Tag tag;
 }

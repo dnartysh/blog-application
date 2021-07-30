@@ -9,20 +9,13 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Getter
 @Setter
-@Table(name = "tag2post")
-public class Tag2PostModel {
+@Table(name = "tags")
+public class Tag {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
-    @JoinColumn(name = "post_id")
-    @OneToOne(cascade = CascadeType.ALL)
-    private PostModel postId;
-
-    @NotNull
-    @JoinColumn(name = "tag_id")
-    @OneToOne(cascade = CascadeType.ALL)
-    private TagModel tagId;
+    private String name;
 }

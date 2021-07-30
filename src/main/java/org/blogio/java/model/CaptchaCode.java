@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "captcha_codes")
-public class CaptchaCodeModel {
+public class CaptchaCode {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)

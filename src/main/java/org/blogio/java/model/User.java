@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "users")
-public class UserModel {
+public class User {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,12 +39,15 @@ public class UserModel {
 
     private String photo;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PostModel> posts;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Post> posts;
 
-    @OneToOne(mappedBy = "userId", cascade = CascadeType.ALL)
-    private PostVotesModel postVotesId;
+    @OneToMany(mappedBy = "moderator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Post> moderatedPosts;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PostCommentModel> postComments;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private PostVote postVote;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostComment> postComments;
 }
