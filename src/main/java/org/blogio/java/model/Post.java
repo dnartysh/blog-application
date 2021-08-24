@@ -1,7 +1,9 @@
 package org.blogio.java.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
+import org.blogio.java.view.UserView;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,6 +22,7 @@ public class Post {
 
     @NotNull
     @JoinColumn(name = "is_active")
+    @JsonView(UserView.Normal.class)
     private boolean isActive;
 
     @NotNull
@@ -29,6 +32,7 @@ public class Post {
 
     @JoinColumn(name = "moderator_id")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonView(UserView.Normal.class)
     private User moderator;
 
     @NotNull

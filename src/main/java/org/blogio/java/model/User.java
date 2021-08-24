@@ -1,7 +1,9 @@
 package org.blogio.java.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
+import org.blogio.java.view.UserView;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,12 +29,15 @@ public class User {
     private Date regTime;
 
     @NotNull
+    @JsonView(UserView.Normal.class)
     private String name;
 
     @NotNull
+    @JsonView(UserView.Normal.class)
     private String email;
 
     @NotNull
+    @JsonView(UserView.Normal.class)
     private String password;
 
     private String code;
@@ -40,14 +45,18 @@ public class User {
     private String photo;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonView(UserView.Normal.class)
     private List<Post> posts;
 
     @OneToMany(mappedBy = "moderator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonView(UserView.Normal.class)
     private List<Post> moderatedPosts;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private PostVote postVote;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonView(UserView.Normal.class)
+    private List<PostVote> postVotes;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonView(UserView.Normal.class)
     private List<PostComment> postComments;
 }
