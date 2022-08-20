@@ -1,23 +1,21 @@
 package org.blogio.java.service;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.commons.collections4.IterableUtils;
 import org.blogio.java.api.response.PostResponse;
+import org.blogio.java.api.response.model.PostSimple;
 import org.blogio.java.model.Post;
 import org.blogio.java.model.PostComment;
 import org.blogio.java.model.PostVote;
 import org.blogio.java.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
-@Getter
-@Setter
 public class PostService {
-    private final PostRepository postRepository;
-    private final PostResponse postResponse;
+    private final int ANNOUNCE_MAX_WIDTH = 150;
+    private PostRepository postRepository;
+    private PostResponse postResponse;
 
     public PostService(PostRepository postRepository, PostResponse postResponse) {
         this.postRepository = postRepository;
@@ -25,16 +23,32 @@ public class PostService {
     }
 
     public PostResponse getPosts(int offset, int limit, String mode) {
-        Iterable<Post> posts = postRepository.findAll();
-        int count = IterableUtils.size(posts);
+        List<PostSimple> postSimples = new ArrayList<>();
+        int postsCount = postRepository.findCountPosts();
+        List<Post> posts = postRepository.findPostsWithOffsetAndLimit(offset, limit);
 
-//        postResponse.
+        posts.forEach(post -> {
+            PostSimple postSimple = new PostSimple(post.getId(),
+                    post.getTime().getTime(),
+                    post.getUser(),
+                    post.getTitle(),
+                    getAnnounce(post.getText()),
+                    getPostVoteCount(post.getPostVotes(), true),
+                    getPostVoteCount(post.getPostVotes(), false),
+                    getCommentCount(post.getPostComments()),
+                    post.getViewCount());
 
-        if (count > 0) postResponse.setCount(count);
+            postSimples.add(postSimple);
+        });
 
-        posts.forEach(postResponse::addPost);
+        postResponse.setCount(postsCount);
+        postResponse.setPosts(postSimples);
 
         return postResponse;
+    }
+
+    private String getAnnounce(String text) {
+        return text.substring(0, ANNOUNCE_MAX_WIDTH) + "...";
     }
 
     private Long getPostVoteCount(List<PostVote> votes, boolean isLike) {

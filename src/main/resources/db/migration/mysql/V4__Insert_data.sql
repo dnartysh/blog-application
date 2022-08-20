@@ -1,6 +1,6 @@
-insert into users values (1, 'denis@mail.ru', 1, 'Denis', '362rrr', '2021-01-01 10:30:30');
-insert into users values (2, 'oleg@mail.ru', 0, 'Oleg', '555pp', '2021-02-03 11:20:50');
-insert into users values (3, 'katya@mail.ru', 0, 'Katya', '23254h', '2021-01-11 11:25:50');
+insert into users values (1, null, 'denis@mail.ru', 1, 'Denis', '362rrr', '', '2021-01-01 10:30:30');
+insert into users values (2, null, 'oleg@mail.ru', 0, 'Oleg', '555pp', '', '2021-02-03 11:20:50');
+insert into users values (3, null, 'katya@mail.ru', 0, 'Katya', '23254h', '', '2021-01-11 11:25:50');
 insert into posts values (1, 1, 'ACCEPTED', 1, 'Some text in post with tag Skillbox #1', '2021-06-11 10:30:20', 'Test post #1', 2, 1);
 insert into posts values (2, 0, 'NEW', NULL, 'Some text in post with tag Java #3', '2021-02-10 10:30:20', 'Test post #2', 2, 1);
 insert into posts values (3, 1, 'NEW', NULL, 'Some text in post with tag Mysql #4', '2021-05-17 10:30:20', 'Test post #3', 2, 2);
