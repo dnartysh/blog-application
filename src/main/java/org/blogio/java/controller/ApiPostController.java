@@ -1,6 +1,8 @@
 package org.blogio.java.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.blogio.java.api.response.PostResponse;
+import org.blogio.java.view.UserView;
 import org.blogio.java.service.PostService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ public class ApiPostController {
     }
 
     @GetMapping()
+    @JsonView(UserView.Post.class)
     public PostResponse test(@RequestParam(defaultValue = "0") int offset,
                              @RequestParam(defaultValue = "10") int limit,
                              @RequestParam(defaultValue = "recent") String mode) {

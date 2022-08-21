@@ -48,7 +48,11 @@ public class PostService {
     }
 
     private String getAnnounce(String text) {
-        return text.substring(0, ANNOUNCE_MAX_WIDTH) + "...";
+        if (text.length() < ANNOUNCE_MAX_WIDTH) {
+            return text + "...";
+        } else {
+            return text.substring(0, ANNOUNCE_MAX_WIDTH) + "...";
+        }
     }
 
     private Long getPostVoteCount(List<PostVote> votes, boolean isLike) {
