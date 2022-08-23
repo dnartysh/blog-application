@@ -2,8 +2,7 @@ package org.blogio.java.api.response;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.blogio.java.api.response.model.PostSimple;
-import org.blogio.java.model.Post;
+import org.blogio.java.api.response.model.PostResponseModel;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
@@ -14,9 +13,9 @@ import java.util.List;
 @Setter
 public class PostResponse {
     private int count;
-    private List<PostSimple> posts;
+    private List<PostResponseModel> posts;
 
-    public PostResponse(int count, List<PostSimple> posts) {
+    public PostResponse(int count, List<PostResponseModel> posts) {
         this.count = count;
         this.posts = posts;
     }
@@ -30,7 +29,7 @@ public class PostResponse {
         this.count = count;
     }
 
-    public void addPost(PostSimple post) {
+    public void addPost(PostResponseModel post) {
         if (!posts.contains(post)) posts.add(post);
     }
 }

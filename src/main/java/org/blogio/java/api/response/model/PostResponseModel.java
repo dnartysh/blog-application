@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostSimple {
+public class PostResponseModel {
     private int id;
     private long timestamp;
     private User user;

@@ -1,7 +1,7 @@
 package org.blogio.java.service;
 
 import org.blogio.java.api.response.PostResponse;
-import org.blogio.java.api.response.model.PostSimple;
+import org.blogio.java.api.response.model.PostResponseModel;
 import org.blogio.java.model.Post;
 import org.blogio.java.model.PostComment;
 import org.blogio.java.model.PostVote;
@@ -23,12 +23,12 @@ public class PostService {
     }
 
     public PostResponse getPosts(int offset, int limit, String mode) {
-        List<PostSimple> postSimples = new ArrayList<>();
+        List<PostResponseModel> postSimples = new ArrayList<>();
         int postsCount = postRepository.findCountPosts();
         List<Post> posts = postRepository.findPostsWithOffsetAndLimit(offset, limit);
 
         posts.forEach(post -> {
-            PostSimple postSimple = new PostSimple(post.getId(),
+            PostResponseModel postSimple = new PostResponseModel(post.getId(),
                     post.getTime().getTime(),
                     post.getUser(),
                     post.getTitle(),
