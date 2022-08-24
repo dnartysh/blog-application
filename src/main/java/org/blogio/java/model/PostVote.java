@@ -19,7 +19,7 @@ public class PostVote {
 
     @NotNull
     @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
     @NotNull
