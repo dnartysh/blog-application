@@ -25,7 +25,7 @@ public class PostService {
     public PostResponse getPosts(int offset, int limit, String mode) {
         List<PostResponseModel> postSimples = new ArrayList<>();
         int postsCount = postRepository.findCountPosts();
-        List<Post> posts = postRepository.findPostsWithOffsetAndLimit(offset, limit);
+        List<Post> posts = getPostsByMode(offset, limit, mode);
 
         posts.forEach(post -> {
             PostResponseModel postSimple = new PostResponseModel(post.getId(),
@@ -45,6 +45,19 @@ public class PostService {
         postResponse.setPosts(postSimples);
 
         return postResponse;
+    }
+
+    private List<Post> getPostsByMode(int offset, int limit, String mode) {
+        switch (mode) {
+            case "popular":
+                return postRepository.findPopularPostsWithOffsetAndLimit(offset, limit);
+            case "best":
+                return postRepository.findBestPostsWithOffsetAndLimit(offset, limit);
+            case "early":
+                return postRepository.findEarlyPostsWithOffsetAndLimit(offset, limit);
+            default:
+                return postRepository.findPostsWithOffsetAndLimit(offset, limit);
+        }
     }
 
     private String getAnnounce(String text) {
