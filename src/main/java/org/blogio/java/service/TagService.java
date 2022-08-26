@@ -7,6 +7,7 @@ import org.blogio.java.repository.PostRepository;
 import org.blogio.java.repository.TagRepository;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class TagService {
     private TagRepository tagRepository;
     private PostRepository postRepository;
     private TagResponse tagResponse;
+    private DecimalFormat kWeightFormat = new DecimalFormat("###.##");
 
     public TagService(TagRepository tagRepository, PostRepository postRepository,
                       TagResponse tagResponse) {
@@ -59,6 +61,6 @@ public class TagService {
         double dWeightMax = countPostsByPopularTag / countPosts;
         double k = 1 / dWeightMax;
 
-        return dWeight * k;
+        return Double.parseDouble(kWeightFormat.format(dWeight * k));
     }
 }
