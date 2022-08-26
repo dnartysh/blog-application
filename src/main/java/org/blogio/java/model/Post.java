@@ -28,12 +28,12 @@ public class Post {
     private PostStatus moderationStatus;
 
     @JoinColumn(name = "moderator_id")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     private User moderator;
 
     @NotNull
     @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
     @NotNull
@@ -49,9 +49,9 @@ public class Post {
     @JoinColumn(name = "view_count")
     private int viewCount;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostVote> postVotes;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostComment> postComments;
 }
