@@ -38,4 +38,9 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
             "(select post_id from tag2post where tag_id = :tagId) and is_active = true " +
             "and moderation_status = 'ACCEPTED' and time <= now()", nativeQuery = true)
     List<Post> findPostsByTagId(@Param("tagId") int tagId);
+
+    @Query(value = "select * from posts where title like :query " +
+            "and is_active = true and moderation_status = 'ACCEPTED' " +
+            "and time <= now() limit :limit offset :offset", nativeQuery = true)
+    List<Post> findPostsByQueryWithOffsetAndLimit(@Param("offset") int offset, @Param("limit") int limit, @Param("query") String query);
 }

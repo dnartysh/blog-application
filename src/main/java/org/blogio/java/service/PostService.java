@@ -23,9 +23,23 @@ public class PostService {
     }
 
     public PostResponse getPosts(int offset, int limit, String mode) {
+        postResponse.setCount(getCountPosts());
+        postResponse.setPosts(getPostResponseModels(getPostsByMode(offset, limit, mode)));
+
+        return postResponse;
+    }
+
+    public PostResponse getPostsByQuery(int offset, int limit, String query) {
+        List<Post> posts = postRepository.findPostsByQueryWithOffsetAndLimit(offset, limit, "%" + query + "%");
+
+        postResponse.setCount(posts.size());
+        postResponse.setPosts(getPostResponseModels(posts));
+
+        return postResponse;
+    }
+
+    private List<PostResponseModel> getPostResponseModels(List<Post> posts) {
         List<PostResponseModel> postSimples = new ArrayList<>();
-        int postsCount = postRepository.findCountPosts();
-        List<Post> posts = getPostsByMode(offset, limit, mode);
 
         posts.forEach(post -> {
             PostResponseModel postSimple = new PostResponseModel(post.getId(),
@@ -41,10 +55,11 @@ public class PostService {
             postSimples.add(postSimple);
         });
 
-        postResponse.setCount(postsCount);
-        postResponse.setPosts(postSimples);
+        return postSimples;
+    }
 
-        return postResponse;
+    private int getCountPosts() {
+        return postRepository.findCountPosts();
     }
 
     private List<Post> getPostsByMode(int offset, int limit, String mode) {

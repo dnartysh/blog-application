@@ -20,9 +20,21 @@ public class ApiPostController {
 
     @GetMapping()
     @JsonView(UserView.Post.class)
-    public PostResponse test(@RequestParam(defaultValue = "0") int offset,
+    public PostResponse getPosts(@RequestParam(defaultValue = "0") int offset,
                              @RequestParam(defaultValue = "10") int limit,
                              @RequestParam(defaultValue = "recent") String mode) {
         return postService.getPosts(offset, limit, mode);
+    }
+
+    @GetMapping("/search")
+    @JsonView(UserView.Post.class)
+    public PostResponse getPostsBySearch(@RequestParam(defaultValue = "0") int offset,
+                                         @RequestParam(defaultValue = "10") int limit,
+                                         @RequestParam(defaultValue = "") String query) {
+        if (!"".equals(query)) {
+            return postService.getPostsByQuery(offset, limit, query);
+        }
+
+        return postService.getPosts(offset, limit, query);
     }
 }
